@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">{{this.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--  -->
+  <ckeditor [editor]="Editor"  [config]="{ toolbar:{ items:[ 'heading', '|', 'bold', 'italic','uploadimage','numberedList','bulletedList'],shouldNotGroupWhenFull: true} }"  data="<p>{{this.notes_text}}</p>"></ckeditor>
+<!-- <div style="padding: 10px;">
+
+</div> -->
+
+</ion-content>

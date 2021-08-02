@@ -1,0 +1,50 @@
+.scroll-1{
+    white-space: nowrap;
+    width: auto;
+    height: 160px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin-top: 20px;
+   
+} 
+.scroll-item {
+    display: inline-block;
+    } 
+    
+    .scroll-2{
+        white-space: nowrap;
+        width: auto;
+        height: 20px;
+        overflow-y: hidden;
+        overflow-x: auto; 
+    } 
+    .scroll-item2 {
+        display: inline-block;
+        margin:10px;
+        } 
+        a {
+            color: #0254EB
+        }
+        a:visited {
+            color: #0254EB
+        }
+        a.morelink {
+            text-decoration:none;
+            outline: none;
+        }
+        .morecontent span {
+            display: none;
+        }
+        .comment {
+            width: auto;
+            
+            margin: 10px;
+        }
+     .comment_des{
+        max-width: 200px;
+       // white-space: nowrap;
+        overflow: hidden;
+        font-size: 12px;
+        text-overflow: ellipsis;
+     }
+    
