@@ -4,6 +4,21 @@
     height: 300px;
     overflow-y: hidden;
     overflow-x: auto;
-    margin-top: 20px;
-   
+    margin-top: 20px;  
 } 
+ion-title {
+    text-align: center;
+}
+ion-content {
+    h5 {
+        font-size: var(--large);
+        text-transform: capitalize;
+        font-weight: 500;
+        color: var(--gray);
+}
+.scroll-item {
+    img {
+        box-shadow: var(--box-shadow4);
+    }
+}
+}

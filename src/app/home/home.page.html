@@ -1,66 +1,46 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title style="text-align: center;">
-     Home
+    <ion-title>
+      Flutter Ebook App
     </ion-title>
     <ion-buttons slot="end" [routerLink]="['/login']">
       login
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-  <ion-content>
-
-    <!--*ngIf="networkStatus.connected == true; else networknot"  -->
-    <ion-refresher slot="fixed" (ionRefresh)="getdataRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-    <div>
-   <div class="scroll-1" scrollX='true'>
-    <div class="scroll-item" *ngFor="let item of result"> 
-      <!-- <div class="items_img" > -->
-        <ion-card class="items_img" (click)="viewItem(item.id)" style="width: 100px;height:130px">
-            <img src="{{item.images[0].src}}" style="width: 100px;height:130px">
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="getdataRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div>
+    <div class="scroll-1" scrollX='true'>
+      <div class="scroll-item" *ngFor="let item of result">
+        <ion-card class="items_img" (click)="viewItem(item.id)">
+          <img src="{{item.images[0].src}}">
         </ion-card>
-          
-      <!-- </div> -->
-      <!-- <small><strong>{{item.name}}</strong></small><br>
-      <small>{{item.price}} Rs</small><br>
-      <ion-button color="success" style="width: 60px;height: 30px;"><ion-icon name="cart-outline" style="width: 30px;height:30px;"></ion-icon>
-      </ion-button>
-      <ion-button color="primary" style="width: 60px;height: 30px;"><ion-icon name="heart-outline" style="width: 30px;height:30px;"></ion-icon></ion-button> -->
-    </div>
-   
-  </div>
-  <h5 style ="width:200px;margin:10px">Categories</h5>
-  <div class="scroll-2" scrollX='true' style="height:50px;">
-    <div class="scroll-item2" *ngFor="let item_category of result_category"> 
-      <div class="items_img2" >
-        <ion-chip (click)="viewCategory(item_category.id,item_category.name)">
-          <ion-label color="white"><small>{{item_category.name}}</small></ion-label>
-        </ion-chip>
       </div>
-
     </div>
-  </div>
-  <h5 style ="width:200px;margin:10px">Recentely Added</h5>
-  <ion-row *ngFor="let item of result"  (click)="viewItem(item.id)">
-    <ion-col size="4" size-sm>
-      <ion-card  style="width: 100px;height:130px">
-        <img src="{{item.images[0].src}}" style="width: 100px;height:130px">
-    </ion-card>
+    <h5>Categories</h5>
+    <div class="scroll-2" scrollX='true'>
+      <div class="scroll-item2" *ngFor="let item_category of result_category">
+        <div class="items_img2">
+          <ion-chip (click)="viewCategory(item_category.id,item_category.name)">
+            <ion-label color="white"><small>{{item_category.name}}</small></ion-label>
+          </ion-chip>
+        </div>
+      </div>
+    </div>
+    <h5>Recentely Added</h5>
+    <ion-row *ngFor="let item of result" (click)="viewItem(item.id)">
+      <ion-col size="4" size-sm>
+        <ion-card style="width: 100px;height:130px">
+          <img src="{{item.images[0].src}}" style="width: 100px;height:130px">
+        </ion-card>
       </ion-col>
       <ion-col size="8" size-sm>
-        <h6 >{{item.name}}</h6>
+        <h6>{{item.name}}</h6>
         <div class="comment_des" [innerHTML]="item.short_description"></div>
-        <!-- <small>{{item.price}} Rs</small><br>
-        <ion-button color="success" style="width: 60px;height: 30px;"><ion-icon name="cart-outline" style="width: 30px;height:30px;"></ion-icon>
-        </ion-button>
-        <ion-button color="primary" style="width: 60px;height: 30px;"><ion-icon name="heart-outline" style="width: 30px;height:30px;"></ion-icon></ion-button>
-       -->
       </ion-col>
     </ion-row>
   </div>
-<!--   <ng-template #networknot>
- Internet connection problem....
-  </ng-template> -->
 </ion-content>
