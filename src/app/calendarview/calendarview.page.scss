@@ -1,0 +1,20 @@
+.Calender-Section {
+    ion-card-title {
+        font-size: var(--large);
+        text-align: center;
+    }
+    .right-btn ion-button {
+        float: right;
+    }
+    ion-input {
+        margin-bottom: 20px;
+    }
+  ::ng-deep  input.native-input {
+     border: 1px solid var(--gray);
+     box-shadow: var(--box-shadow2);
+     padding: 10px;
+    }
+    ::ng-deep .item-native {
+        border-bottom: unset;
+    }
+}

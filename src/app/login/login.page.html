@@ -8,26 +8,33 @@
 </ion-header>
 
 <ion-content>
+  <div class="img-wrap"></div>
   <form>
-    <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" required></ion-input>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" required></ion-input>
-    </ion-item>
-
+    <div class="user-icon">
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </div>
+<p>
+  <label for="fname">Email</label><br>
+  <input type="text" id="fname" name="Email" placeholder="xyz@gmail.com">
+</p>     
+  <p>
+    <label for="fname">Password</label><br>
+    <input type="text" id="fname" name="Password" placeholder="xxxxxx">
+  </p>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
+        <div class="cta">
+          <button type="text" expand="block">Sign In</button>
+        </div>
+      
+        <div class="acc-create-wrap">
         <div>
-          <a [routerLink]="['/registration']" class="small-text">Create new account</a>
+          <a [routerLink]="['/registration']" class="small-text">Create Account</a>
         </div>
         <div>
         <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
       </div>
+    </div>
       </ion-col>
     </ion-row>
   </form>

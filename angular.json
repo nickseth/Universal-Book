@@ -14,6 +14,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "jspdf"
+    ],
             "outputPath": "www",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -32,7 +35,14 @@
               }
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": []
+            "scripts": ["src/assets/js/jquery.min.js","src/assets/js/turn.min.js","src/assets/js/pdf.min.js"],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {

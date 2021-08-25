@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from './../api/book.service';
 import { File } from '@ionic-native/file/ngx';
-import { Downloader } from '@ionic-native/downloader/ngx';
+import { Downloader,DownloadRequest,NotificationVisibility } from '@ionic-native/downloader/ngx';
 import { AlertController } from '@ionic/angular';
 import { SqdatabaseService } from './../api/sqdatabase.service';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -22,18 +21,23 @@ export class ProductViewPage implements OnInit {
   book_id:any;
   colorVar:any;
   file_exist_status:any;
+  filename:any;
+  fileurl:any;
   // private downloader: Downloader
   wishlistData:any;
   wishlist_index:any;
-  private fileTransfer: FileTransferObject;  
+  
   constructor(private router:Router,private route: ActivatedRoute,private book:BookService,
     private file:File,private downloader: Downloader ,public alertController: AlertController
-    ,private activatedRouter: Router,private sqdatabase:SqdatabaseService,private transfer: FileTransfer,
+    ,private activatedRouter: Router,private sqdatabase:SqdatabaseService,
     public loadingController: LoadingController) { 
-      // this.file.checkFile(this.file.externalRootDirectory+'MyEbook/','robert-louis-stevenson_treasure-island.epub').then(_ => {this.file_exist_status = true;
-      //  }).catch(err =>
-      //  {
-      //    this.file_exist_status = false;} );
+      if(this.filename != undefined){
+        this.file.checkFile(this.file.externalRootDirectory+'Universal-Book/',this.filename).then(_ => {this.file_exist_status = true;
+        }).catch(err =>
+        {
+          this.file_exist_status = false;} );
+      }
+    
         }
 
   ngOnInit() {
@@ -58,6 +62,13 @@ this.fetchapiData(this.book_id);
     this.price = this.data.price;
     this.book_name = this.data.name;
     this.description = this.data.description;
+    
+  if(this.data.downloads[0] != undefined){
+    this.filename = this.data.downloads[0].name;
+ }
+ if(this.data.downloads[0] != undefined){
+    this.fileurl = this.data.downloads[0].file;
+}
     loading.dismiss();
 	}); 
   }
@@ -94,57 +105,39 @@ this.fetchapiData(this.book_id);
       // book_location
    
   }
+ 
+
   downloadFileone(){
 
-    this.activatedRouter.navigate(['/bookreader', { book_location: 2 }]);
-    // let url = encodeURI("https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub");  
-    // //here initializing object.  
-    // this.file.createDir(this.file.externalRootDirectory, 'Universal Book', true);
-    // this.fileTransfer = this.transfer.create();  
-    // // here iam mentioned this line this.file.externalRootDirectory is a native pre-defined file path storage. You can change a file path whatever pre-defined method.  
-    // this.fileTransfer.download(url, this.file.externalRootDirectory+"Universal Book/" + "robert-louis-stevenson_treasure-island.epub", true).then((entry) => {  
-    //     //here logging our success downloaded file path in mobile.  
-    //     this.DownloadAlert('download completed: ' + entry.toURL());  
-    // }, (error) => {  
-    //     //here logging our error its easier to find out what type of error occured.  
-    //     this.DownloadAlert('download failed: ' + error);  
-    // });  
+  this.file.createDir(this.file.externalRootDirectory, 'Universal-Book', true);
+  if(this.fileurl != undefined){
+  let url = encodeURI(this.fileurl);
+
+  var request:DownloadRequest={
+    uri: url,
+    title: this.filename,
+    description: '',
+    mimeType: '',
+    visibleInDownloadsUi: true,
+    notificationVisibility: NotificationVisibility.
+   VisibleNotifyCompleted,
+    destinationInExternalPublicDir: {
+        dirType: 'Universal-Book',
+        subPath: this.filename 
+    }
+}
+
+setTimeout(()=>{
+this.downloader.download(request).then((location: string) => {console.log("download file");
+        
+        this.sqdatabase.addBookDownload(this.book_id,"Admin",this.book_name,this.img_src,location);
+        this.file_exist_status = true;
+      }).catch((error: any) => {this.DownloadAlert('File downloading error.');
+        this.file_exist_status = false;});
+},1000);
+
   }
-
-//   downloadFileone(){
-
-//   // this.file.createDir(this.file.externalRootDirectory, 'MyEbook', true);
-//   let url = encodeURI("https://standardebooks.org/ebooks/robert-louis-stevenson/treasure-island/downloads/robert-louis-stevenson_treasure-island.epub");
-
-//   var DownloadRequest = {
-//     uri: url,
-//     title: 'My Ebook',
-//     description: '',
-//     mimeType: '',
-//     visibleInDownloadsUi: true,
-//     showNotification: true,
-//     destinationInExternalPublicDir: {
-//         dirType: 'MyEbook',
-//         subPath: 'robert-louis-stevenson_treasure-island.epub'
-//     }
-// }
-
-// setTimeout(()=>{
-// this.downloader.download(DownloadRequest)
-//         .then((location: string) => {console.log("download file");
-//         this.file_exist_status = true;
-//         this.sqdatabase.addBookDownload(this.book_id,"Admin",this.book_name,this.img_src,location);
-//   //      var admin_file = this.sqdatabase.adddownloadedBook('12','Dipak',`${location}`);
-//   //  this.DownloadAlert(admin_file);
-//   //         this.DownloadAlert(this.sqdatabase.getDownloadedBook());
-       
-       
-//       })
-//         .catch((error: any) => {this.DownloadAlert('File downloading error.');
-//         this.file_exist_status = false;});
-// },1000);
-
-//   }
+}
   async DownloadAlert(erro){
     const alert = await this.alertController.create({
       message: erro,

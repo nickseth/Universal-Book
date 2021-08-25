@@ -60,5 +60,6 @@ book_wishlist_array:any;
   getDownloadedBookLocation(){
     return this.storage.get('download_book_location');
   }
+  
 
 }

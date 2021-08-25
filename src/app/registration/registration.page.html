@@ -9,32 +9,25 @@
 
 <ion-content>
   <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" method="post">
-    <ion-item lines="full">
-      <ion-label position="floating">First name</ion-label>
-      <ion-input formControlName="first_name" type="text"  required></ion-input>
-    </ion-item>
+    <div class="form-wrap"><img src="../../assets/open-book.jpg" alt=""></div>
 
-    <ion-item lines="full">
-      <ion-label position="floating">Last Name</ion-label>
-      <ion-input formControlName="last_name" type="text"  required></ion-input>
-    </ion-item>
- <ion-item lines="full">
-      <ion-label position="floating">Username or Email</ion-label>
-      <ion-input formControlName="username" type="text"  required></ion-input>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input formControlName="email" type="email"  required></ion-input>
-    </ion-item>
+    <p>
+      <label for="fname">Full name</label><br>
+  <input type="text">
+    </p>
 
-    <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input formControlName="password" type="password"  required></ion-input>
-    </ion-item>
+    <p>
+      <label for="fname">Email Id</label><br>
+  <input type="text">
+    </p>
 
+    <p>
+      <label for="fname">Password</label><br>
+  <input type="text">
+    </p>
     <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Sign Up</ion-button>
+      <ion-col class="cta">
+        <button type="submit" expand="block">Sign Up</button>
       </ion-col>
     </ion-row>
   </form>

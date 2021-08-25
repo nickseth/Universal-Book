@@ -1,216 +1,94 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.page.html',
   styleUrls: ['./calculator.page.scss'],
 })
 export class CalculatorPage implements OnInit {
+  display = 0;
+  memory = 0;
+  state = 'number';
+  operator = '+';
+  decimal = false;
+  decimals = 0;
 
-  display = '0';
-  firstval: number = null;
-  operator: any = null;
-  newcursor = false;
-  isc = false;
-  iscomma = false;
-
-  constructor() { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
   }
-  click(val: any) {
-    switch (val) {
-      case 'ac':
-        this.display = '0';
-        this.firstval = null;
-        this.operator = null;
-        this.newcursor = false;
-        break;
-      case 'c':
-        this.display = '0';
-        this.isc = false;
-        break;
-      case '+/-':
-        if (Math.sign(parseInt(this.display, 0)) === 1) {
-          const sign = -Math.abs(parseInt(this.display, 0));
-          this.display = sign.toString();
-        } else if (Math.sign(parseInt(this.display, 0)) === -1) {
-          const sign = Math.abs(parseInt(this.display, 0));
-          this.display = sign.toString();
+  clickNumber(n: number) {
+    switch (this.state) {
+      case 'number':
+        if (this.decimal) {
+          this.decimals++;
+          this.display = this.display + n * Math.pow(10, -this.decimals);
         } else {
-          this.display = this.display;
+          this.display = this.display * 10 + n;
         }
         break;
-      case '%':
-        this.addpercent();
+      case 'operator':
+        this.display = n;
+        this.state = 'number';
         break;
-      case ':':
-        this.addoperator(':');
-        break;
-      case 'X':
-        this.addoperator('X');
-        break;
-      case '-':
-        this.addoperator('-');
-        break;
-      case '+':
-        this.addoperator('+');
-        break;
-      case '=':
-        if (this.firstval !== null && this.operator !== null) {
-          this.calclast();
-        }
-        this.operator = null;
-        break;
-      case '0':
-        this.addnumber('0');
-        break;
-      case '1':
-        this.addnumber('1');
-        break;
-      case '2':
-        this.addnumber('2');
-        break;
-      case '3':
-        this.addnumber('3');
-        break;
-      case '4':
-        this.addnumber('4');
-        break;
-      case '5':
-        this.addnumber('5');
-        break;
-      case '6':
-        this.addnumber('6');
-        break;
-      case '7':
-        this.addnumber('7');
-        break;
-      case '8':
-        this.addnumber('8');
-        break;
-      case '9':
-        this.addnumber('9');
-        break;
-      case ',':
-        this.addcomma();
-        break;
+      case 'result':
+        this.memory = 0;
+        this.display = n;
+        this.state = 'number';
     }
   }
 
-  addcomma() {
-    if (this.iscomma === false) {
-      this.iscomma = true;
-    } else {
-      this.iscomma = false;
-    }
+  clickOperator(o: string) {
+    // console.log('clickOperator inicio');
+    this.calculate();
+    this.operator = o;
+    this.memory = this.display;
+    this.state = 'operator';
+    // console.log('clickOperator fin');
   }
 
-  addnumber(nbr: string) {
-    if (nbr === '0') {
-      if (this.newcursor === true) {
-        this.display = nbr;
-        this.newcursor = false;
-      } else if (this.display !== '0') {
-        if (this.iscomma === true) {
-          this.display = `${this.display.toString()}.${nbr}`;
-        } else {
-          this.display = this.display.toString() + nbr;
-        }
-      } else if (this.display === '0') {
-        if (this.iscomma === true) {
-          this.display = `${this.display.toString()}.${nbr}`;
-        }
-      }
-    } else {
-      if (this.newcursor === true) {
-        this.display = nbr;
-        this.newcursor = false;
-      } else if (this.display === '0') {
-        if (this.iscomma === true) {
-          if (this.display.toString().indexOf('.') > -1) {
-            this.display = this.display.toString() + nbr;
-          } else {
-            this.display = `${this.display.toString()}.${nbr}`;
-          }
-        } else {
-          this.display = nbr;
-        }
-      } else {
-        if (this.iscomma === true) {
-          if (this.display.toString().indexOf('.') > -1) {
-            this.display = this.display.toString() + nbr;
-          } else {
-            this.display = `${this.display.toString()}.${nbr}`;
-          }
-        } else {
-          this.display = this.display.toString() + nbr;
-        }
-      }
-    }
-    this.isc = true;
+  calculate() {
+    // tslint:disable-next-line:no-eval
+    // console.log('calculate inicio');
+    // console.log('' + '' + this.memory + this.operator + '(' + this.display + ')');
+    this.display = eval('' + this.memory + this.operator + '(' + this.display + ')');
+    this.memory = 0;
+    this.state = 'result';
+    this.operator = '+';
+    this.decimal = false;
+    this.decimals = 0;
+    // console.log('calculate fin');
   }
 
-  addpercent() {
-    this.iscomma = false;
-    const dispval = parseInt(this.display, 0) / 100;
-    this.display = dispval.toString();
+  resetLastNumber() {
+    this.display = 0;
+    this.state = 'number';
+    this.decimal = false;
+    this.decimals = 0;
   }
 
-  addoperator(op: string) {
-
-    if (this.newcursor === false) {
-      if (this.firstval === null) {
-        if (this.iscomma === true) {
-          this.firstval = parseFloat(this.display);
-       
-        } else {
-          this.firstval = parseInt(this.display, 0);
-          
-        }
-      }
-      if (this.firstval !== null && this.operator !== null) {
-        this.calclast();
-      }
-    }
-    this.iscomma = false;
-    this.operator = op;
-    this.newcursor = true;
+  reset() {
+    this.display = 0;
+    this.memory = 0;
+    this.state = 'number';
+    this.operator = '+';
+    this.decimal = false;
+    this.decimals = 0;
   }
 
-  calclast() {
-    switch (this.operator) {
-      case ':':
-        if (this.iscomma === true) {
-          this.firstval = (this.firstval / parseFloat(this.display));
-        } else {
-          this.firstval = (this.firstval / parseInt(this.display, 0));
-        }
-        break;
-      case 'X':
-        if (this.iscomma === true) {
-          this.firstval = (this.firstval * parseFloat(this.display));
-        } else {
-          this.firstval = (this.firstval * parseInt(this.display, 0));
-        } 
-        break;
-      case '-':
-        if (this.iscomma === true) {
-          this.firstval = (this.firstval - parseFloat(this.display));
-        } else {
-          this.firstval = (this.firstval - parseInt(this.display, 0));
-        }
-        break;
-      case '+':
-        if (this.iscomma === true) {
-          this.firstval = (this.firstval + parseFloat(this.display));
-        } else {
-          this.firstval = (this.firstval + parseInt(this.display, 0));
-        }
-        break;
-    }
-   
-    this.display = this.firstval.toString();
+  changeSign() {
+    this.display = this.display * -1;
+  }
+
+  setDecimal() {
+    this.decimal = true;
+  }
+  dismiss() {
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalController.dismiss({
+      'dismissed': true,
+    });
   }
 
 }

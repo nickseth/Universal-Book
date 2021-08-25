@@ -1,31 +1,25 @@
-.calc-main {
-    // background-color: #000000;
-    height: 100%;
-  }
-  
-  // .calc-display {
-  //    background-color: #000000;
-  //   padding: 60px 15px 20px;
-  // }
-  
-  ion-input {
-    // color: #ffffff;
-    font-size: 48px;
-  }
-  
-  ion-col {
-    padding: 0;
-    margin: 0;
-    text-align: center;
-  }
-  
-  ion-button {
-    height: 50px;
-    width: 50px;
-    border-radius: 50;
-    font-size: 20px;
-  }
-  
-  .double-width {
-    width: 86%;
-  }
+ion-grid {
+  width: 100%;
+  height: 100%;
+  background-color: var(--ion-color-primary-tint);
+  padding-top: 2em !important;
+}
+
+ion-button {
+  font-size: 1.6em;
+  width: 90% !important;
+}
+
+// @font-face {
+//   font-family: "deseg7";
+//   src: url("../../assets/fonts/DSEG7Classic-Bold.woff") format('woff');
+// }
+
+.display {
+  font-size: 2.8em;
+  text-align: right;
+  color: white;
+  font-family: "deseg7";
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}

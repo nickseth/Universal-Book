@@ -22,8 +22,8 @@
       </div>   -->
   
       <ion-grid class="book-detail-section">
-	  <ion-row style="width: 100%;padding:10px;margin-bottom:10px">
-	<ion-col id="book-detail-img" >
+    <ion-row style="width: 100%;padding:10px;margin-bottom:10px">
+  <ion-col id="book-detail-img" >
        <ion-card style="width: 100px;height: 130px;">
         <img src="{{this.img_src}}" style="width: 100px;height: 130px;">
        </ion-card> 
@@ -37,7 +37,7 @@
 </ng-template>
 <br>
 
-  <a href="javascript:void(0)" *ngIf="this.file_exist_status; else nofile_status" (click)="readFile(this.book_id)">Open</a>	
+  <a href="javascript:void(0)" *ngIf="this.file_exist_status; else nofile_status" (click)="readFile(this.book_id)">Open</a> 
   <ng-template #nofile_status>
     <a href="javascript:void(0)" (click)="downloadFileone()">download</a>
     </ng-template>

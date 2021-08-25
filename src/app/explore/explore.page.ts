@@ -42,6 +42,8 @@ this.presentLoading();
           div.style.cssText += 'padding:10px;justify-content: space-between;display: flex;';
 
           var h1 = document.createElement("H5");
+          h1.className = 'explore-title';
+          h1.style.cssText += 'font-size: var(--small);text-transform: uppercase;font-weight: bold;';
           h1.innerHTML = `${this.title_cate}`;
           var p1 = document.createElement("P");
           p1.innerHTML = "See All";
@@ -50,29 +52,20 @@ this.presentLoading();
 
             router.navigate(['/categoryreader', { cate_id: category_id,title: title }]);
           }
-          p1.style.cssText += 'color:blue; margin-right:10px;font-size:14px';
-
-
+          p1.style.cssText += 'text-transform: uppercase; margin-right:10px;font-size:14px';
           var myEl = document.querySelector('#divID');
-
           myEl.append(div);
           div.appendChild(h1);
           div.appendChild(p1);
           var div2 = document.createElement("DIV");
           div2.className = 'scroll-first';
-          div2.style.cssText += 'white-space: nowrap;width: auto;height: 80px;overflow-y: hidden;overflow-x: auto;scrollX:true';
+          div2.style.cssText += 'scrollX:true; white-space: nowrap; width: auto;height: 162px;overflow-y: hidden;overflow-x: auto;';
 
           var div4 = document.createElement("DIV");
 
           for (let j = 0; j < len2; j++) {
             let id = this.data2[j].id;
             
-            // if (typeof id !== 'undefined') {
-
-
-            //   this.id_id_1.push(this.data2[j].id);
-
-            // }
             var div3 = document.createElement("DIV");
             div3.className = 'scroll-item';
 
@@ -80,16 +73,17 @@ this.presentLoading();
             if (typeof this.img_url !== 'undefined') {
               var image = document.createElement("img");
               image.src = `${this.data2[j].images[0].src}`;
-              image.style.marginLeft = "10px"
+              image.style.cssText += 'margin-left:10px; box-shadow: var(--box-shadow3);';
               image.classList.add('click-scroll' + id);
               image.setAttribute("attr" + id, id);
               image.onclick=function () {
                 router.navigate(['/product-view', { id: id }]);
               }
 
-              div4.style.cssText += 'width:100px;height:auto';
+              div4.style.cssText += 'width:112px;height:131px;';
               div3.appendChild(div4);
               div4.appendChild(image);
+
               myEl.append(div2);
               div2.appendChild(div3);
 

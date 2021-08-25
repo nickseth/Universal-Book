@@ -1,5 +1,9 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { CalculatorPage } from '../calculator/calculator.page';
+
 
 @Component({
   selector: 'app-account',
@@ -9,7 +13,7 @@ import { Storage } from '@ionic/storage-angular';
 export class AccountPage{
   darkValue: any;
 
-  constructor(private  storage: Storage) {
+  constructor(private  storage: Storage,private activatedRouter: Router,public modalController: ModalController) {
 
     this.storage.get('dark').then((ev) => {
       if(ev){
@@ -29,5 +33,16 @@ export class AccountPage{
      this.storage.set('dark', ev.detail.checked);
     
    }
+ 
+   async presentModal() {
+    const modal = await this.modalController.create({
+      component: CalculatorPage,
+      cssClass: 'my-custom-class',
+      swipeToClose: true,
+      animated:true,
+      presentingElement: await this.modalController.getTop()
+    });
+    return await modal.present();
+  }
 
 }

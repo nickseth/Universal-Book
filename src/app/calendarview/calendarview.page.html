@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
  
-<ion-content>
+<ion-content class="Calender-Section">
  
   <!-- Card for adding a new event -->
   <ion-card>
@@ -64,8 +64,8 @@
     </ion-col>
  
     <!-- Move forward one screen of the slides -->
-    <ion-col size="6" text-right>
-      <ion-button fill="clear" (click)="next()">
+    <ion-col size="6" text-right class="right-btn">
+      <ion-button fill="clear" (click)="next()" >
         <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-col>

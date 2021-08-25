@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SqdatabaseService } from './../api/sqdatabase.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-mybooks',
@@ -9,17 +12,20 @@ import { Router } from '@angular/router';
 })
 export class MybooksPage implements OnInit {
   bookData:any;
-  constructor(private sqdatabase:SqdatabaseService,private activatedRouter:Router) { 
+  constructor(private sqdatabase:SqdatabaseService,private activatedRouter:Router
+    ,private storage: Storage,public alertController: AlertController,private file:File) { 
   }
 
   ngOnInit() {
-    this.sqdatabase.getDownloadedBookLocation().then(val=>{
-      this.bookData = val;
-      
-     
-    });
-    
+this.datafunc();
   }
+    datafunc(){
+      this.sqdatabase.getDownloadedBookLocation().then(val=>{
+        this.bookData = val;
+      });
+    }
+    
+  
   getUsersList(event) {
     return  this.sqdatabase.getDownloadedBookLocation().then(val=>{
       this.bookData = val;
@@ -33,8 +39,34 @@ export class MybooksPage implements OnInit {
       })
   }
   viewItem(book_location) {
-    this.activatedRouter.navigate(['/bookreader', { book_location: book_location }]);
+    // this.DownloadAlert(book_location);
+     this.activatedRouter.navigate(['/bookreader', { id: book_location }]);
 
   }
+
+  viewItemdelete(id,path,file_name){
+      var location_book = this.storage.get('download_book_location');
+    location_book.then(val => {
+        let index = val.findIndex((rank, index) => rank.id === id);
+          val.splice(index, 1);
+          this.storage.set('download_book_location', location_book);
+        
+      });
+      this.file.removeFile(path,file_name);
+      setTimeout(() => {
+        this.datafunc();
+      }, 1000);
+     
+  }
+  async DownloadAlert(erro){
+    const alert = await this.alertController.create({
+      message: erro,
+      buttons:[{
+        text: 'Ok',
+        role: 'cancel'
+      }]
+    });
+    await alert.present();
+    } 
 
 }

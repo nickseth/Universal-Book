@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage-angular';
 import Epub from 'epubjs';
 import Book from 'epubjs/src/book';
@@ -44,7 +42,7 @@ export class BookreaderPage implements OnInit {
   bookmarks_index: any;
   bookmark_highlightData: any;
   constructor(private route: ActivatedRoute,
-    private router: Router, private http: HttpClient, private storage: Storage
+    private router: Router, private storage: Storage
     , public actionSheetController: ActionSheetController, public alertController: AlertController
   ) {
     this.storage.create();
@@ -56,8 +54,8 @@ export class BookreaderPage implements OnInit {
      
     }, 100);
 
-    this.book_id = this.route.snapshot.paramMap.get('book_location');
-    this.epubFileReader(this.book_id);
+    // this.book_id = this.route.snapshot.paramMap.get('book_location');
+    this.epubFileReader(12);
 
   }
 
@@ -633,11 +631,11 @@ export class BookreaderPage implements OnInit {
 
       if (family_item == val) {
 
-        document.getElementById("ffamily_" + family_item).classList.add("fsizecol");
+        document.getElementById("ffamily_" + family_item).classList.add("ion-activated");
 
       } else {
-        document.getElementById("ffamily_" + val).classList.remove("fsizecol");
-        document.getElementById("ffamily_" + family_item).classList.add("fsizecol");
+        document.getElementById("ffamily_" + val).classList.remove("ion-activated");
+        document.getElementById("ffamily_" + family_item).classList.add("ion-activated");
         // alert(family_item);
         // this.rendition.themes.default({ "body": { "font-family": family_item}});
         // document.getElementById('item-description').style.setProperty(`font-family`, family_item);
@@ -672,13 +670,13 @@ export class BookreaderPage implements OnInit {
   // alterDescriptionText() {
   //   this.showShortDesciption = !this.showShortDesciption;
   // }
-  viewItem(item_id) {
-    this.http.get('https://bsinghchauhanapitesting.000webhostapp.com/apimy/testapi.php?getitemdata=true&id=' + item_id).subscribe((response) => {
-      this.data = response;
+  // viewItem(item_id) {
+  //   this.http.get('https://bsinghchauhanapitesting.000webhostapp.com/apimy/testapi.php?getitemdata=true&id=' + item_id).subscribe((response) => {
+  //     this.data = response;
 
-    });
+  //   });
 
-  }
+  // }
   openCity(evt, cityName) {
 
     var i, tabcontent, tablinks;

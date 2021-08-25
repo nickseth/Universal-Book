@@ -1,13 +1,6 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "io.ionic.Universalbook",
 	"appName": "Universal Book",
-	"bundledWebRuntime": false,
-	"npmClient": "npm",
 	"webDir": "www",
-	"plugins": {
-		"SplashScreen": {
-			"launchShowDuration": 0
-		}
-	},
-	"cordova": {}
+	"bundledWebRuntime": false
 }
