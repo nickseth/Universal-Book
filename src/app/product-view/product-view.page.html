@@ -30,8 +30,8 @@
    
   </ion-col>
   <ion-col style="padding:20px">
-    <div style="margin-bottom: 10px;"><strong>{{book_name}}</strong></div>
-   <div style="margin-bottom: 10px;" *ngIf="price; else noPrice"><strong >Price : {{price}}</strong><small>Rs</small></div>
+    <div class="book-title" style="margin-bottom: 10px;"><strong>{{book_name}}</strong></div>
+   <div style="margin-bottom: 10px;" *ngIf="price; else noPrice"><strong >Price : {{price}} /-</strong><small></small></div>
  <ng-template #noPrice>
 <small style="color:rgb(5, 44, 5)">Free</small>
 </ng-template>
@@ -39,7 +39,7 @@
 
   <a href="javascript:void(0)" *ngIf="this.file_exist_status; else nofile_status" (click)="readFile(this.book_id)">Open</a> 
   <ng-template #nofile_status>
-    <a href="javascript:void(0)" (click)="downloadFileone()">download</a>
+    <a href="javascript:void(0)" (click)="readFile()" class="down-cta">download</a>
     </ng-template>
 </ion-col>
     </ion-row>
@@ -47,7 +47,7 @@
   <div><b>Book Description</b></div>
   </ion-row>
   <hr color="dark" style="margin:10px;" />
-  <ion-row style="width: 100%;padding-left:10px;padding-right:10px;padding-bottom:10px;">
+  <ion-row class="text-wrap" style="width: 100%;padding-left:10px;padding-right:10px;padding-bottom:10px;">
   <div style="margin-bottom: 10px;" [innerHTML]="description" *ngIf="description; else noDescription"></div>
   <ng-template #noDescription>
     <small>No description available</small>

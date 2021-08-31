@@ -7,6 +7,7 @@ import Rendition from 'epubjs/src/rendition';
 import { NavItem } from 'epubjs/src/navigation';
 import { ActionSheetController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { SqdatabaseService } from './../api/sqdatabase.service';
 
 @Component({
   selector: 'app-bookreader',
@@ -44,7 +45,7 @@ export class BookreaderPage implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router, private storage: Storage
     , public actionSheetController: ActionSheetController, public alertController: AlertController
-  ) {
+  ,public sqdatabaseService:SqdatabaseService) {
     this.storage.create();
 
 
@@ -819,23 +820,9 @@ export class BookreaderPage implements OnInit {
     await alert.present();
   }
   saveModal(val, title) {
-    let current_location = this.rendition.currentLocation();
-    let notes1 = this.storage.get('notes');
-    let list_notes = { book_id: 12, location: current_location.start.cfi, note_text: val,title:title }
-
-    notes1.then(val => {
-
-      if (val != null) {
-
-        val.push(list_notes);
-        this.storage.set('notes', notes1);
-      } else {
-
-        let notes1 = [];
-        notes1.push(list_notes);
-        this.storage.set('notes', notes1);
-      }
-    })
+    let val1 = val;
+    let title1 = title;
+   this.sqdatabaseService.createNotes('12',val1,title1);
   }
 
 

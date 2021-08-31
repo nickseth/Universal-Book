@@ -1,17 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <!-- <ion-title>imageviewer</ion-title> -->
-    <div slot="end" (click)="dismiss()">close</div>
+    <div slot="end" (click)="dismiss()" class="close-icon_wrap"><ion-icon name="close-outline"></ion-icon></div>
   </ion-toolbar>
   
 </ion-header>
 
 <ion-content>
-<ion-buttons>
-  <ion-button (click)="AccessGallery()">Gallery</ion-button>
-  <ion-button (click)="takePicture()">camera</ion-button>
-</ion-buttons>
-<img [src]="base64Image" *ngIf="base64Image" />
-<div id="imagepreview"></div>
-<ion-button expand="block">Upload</ion-button>
+  <div class="gallery-wrapper">
+    <ion-buttons>
+      <ion-button (click)="AccessGallery()">Gallery</ion-button>
+      <ion-button (click)="takePicture()">camera</ion-button>
+    </ion-buttons>
+    <img [src]="base64Image" *ngIf="base64Image" />
+    <div id="imagepreview"></div>
+    <ion-button expand="block">Upload</ion-button>
+  </div>
 </ion-content>

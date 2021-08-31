@@ -1,0 +1,34 @@
+::ng-deep ion-icon {
+    font-size: var(--large);
+}
+ion-header {
+    .close-icon_wrap {
+        background-color: var(--black);
+        width: 25px;
+        height: 25px;
+        color: var(--white);
+        border-radius: 50%;
+        padding: 2px;
+        box-shadow: var(--box-shadow2);
+    }
+}
+ion-content {
+    .gallery-wrapper {
+        width: 500px;
+        margin: 25px auto;
+        border: 1px solid var(--gray);
+        padding: 10px 30px;
+    }
+    .sc-ion-buttons-md-h {
+        justify-content: center;
+    }
+    .button-clear {
+        border: 1px solid var(--gray);
+        margin-right: 28px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    }
+    
+}
+
+

@@ -61,5 +61,19 @@ book_wishlist_array:any;
     return this.storage.get('download_book_location');
   }
   
+  createNotes(user_id,val,title){
+    let notes1 = this.storage.get('notes');
+    let list_notes = {user_id:user_id,note_text: val,title:title}
+    notes1.then(val => {
+      if (val != null) {
+        val.push(list_notes);
+        this.storage.set('notes', notes1);
+      } else {
+        let notes1 = [];
+        notes1.push(list_notes);
+        this.storage.set('notes', notes1);
+      }
+    })
+  }
 
 }

@@ -1,0 +1,28 @@
+a.down-cta {
+    background-color: var(--blue);
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--white);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: var(--small);
+    font-weight: bold;
+}
+::ng-deep .text-wrap p {
+    font-size: var(--small);
+    font-weight: 300;
+    line-height: 22px;
+    color: var(--black);
+    letter-spacing: 1px;
+}
+::ng-deep .book-title {
+    font-size: var(--large);
+    text-transform: uppercase;
+    color: var(--black);
+}
+::ng-deep button.alert-button {
+    background-color: var(--blue) !important;
+    color: var(--white) !important;
+    border-radius: 5px !important;
+    padding: 12px 20px !important;
+}
